@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/add.css"/>
+	</head>
+	<body>
+		<div id="app">
+			<div class="header">
+				<span>修改快递员</span>
+			</div>
+			<div class="content">
+				<table>	
+					<tr>
+						<td class="text-right">手机号码</td><td class="content_right"><input class="input inline-input" id="number"  placeholder="请输入手机号码"> <span class="btn btn-info" id="find">立即查找</span></td>
+					</tr>
+				</table>
+			</div>
+			<div class="header">
+				<span>查找信息如下</span>
+			</div>
+			<div class="content">
+				<table>
+					<tr>
+						<td class="text-right">姓名</td><td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+					</tr>
+					<tr>
+						<td class="text-right">手机号码</td><td class="content_right"><input class="input" onblur="validatePhone()" name="phoneNumber" required  placeholder="请输入手机号码"><span id="phoneMsg"></span></td>
+					</tr>
+					<tr>
+						<td class="text-right">身份证号码</td><td class="content_right"><input class="input"  onblur="validateCardId()" name="cardIdNumber" required placeholder="请输入身份证号码"><span id="cardIdMsg"></span></td></td>
+					</tr>
+					<tr>
+						<td class="text-right">密码</td><td class="content_right"><input class="input" placeholder="请输入密码"></td>
+					</tr>
+					<tr>
+						<td></td><td class="content_right"><span class="btn btn-info" id="update">立即修改</span>  </td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+	<script src="/qrcode/jquery2.1.4.js"></script>
+	<script src="/layer/layer.js"></script>
+	<script>
+		$(".header:eq(1),.content:eq(1)").hide();
+		var userPhone;
+		$(function () {
+			$("#find").click(function () {
+				var windowId = layer.load();
+				userPhone = $("#number").val();
+				$.getJSON("/courier/find.do",{userPhone:userPhone},function (data) {
+					layer.close(windowId);
+					layer.msg(data.result);
+					if(data.status == 0){
+						$(".header:eq(1),.content:eq(1)").fadeIn(1000);
+						userPhone=data.data.userPhone;
+						$("input:eq(1)").val(data.data.username);
+						$("input:eq(2)").val(data.data.userPhone);
+						$("input:eq(3)").val(data.data.cardId);
+						$("input:eq(4)").val(data.data.password);
+					}
+				})
+			});
+			$("#update").click(function () {
+				var windowId = layer.load();
+				var userName = $("input:eq(1)").val();
+				var userPhone= $("input:eq(2)").val();
+				var cardId = $("input:eq(3)").val();
+				var password = $("input:eq(4)").val();
+				var courier = {
+					userName:userName,
+					userPhone:userPhone,
+					cardId:cardId,
+					password:password,
+				};
+
+				$.getJSON("/courier/update.do",courier,function (data) {
+					layer.close(windowId);
+					layer.msg(data.result);
+					if (data.status == 0){
+						$(".header:eq(1),.content:eq(1)").hide();
+					}
+				})
+			});
+		});
+
+		function validatePhone() {
+			var val = $("input[name='phoneNumber']").val();
+			if (val == "") {
+				$("span[id='phoneMsg']").html("手机号码不能为空！").css("color", "red");
+				return false;
+			} else if (val.length < 11 || val.length > 11) {
+				$("span[id='phoneMsg']").html("手机号码的长度必须为11位！").css("color", "red");
+				return false;
+			}
+			$("span[id='phoneMsg']").html("");
+			return true;
+		}
+	</script>
+</html>

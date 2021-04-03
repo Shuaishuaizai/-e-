@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/add.css"/>
+    <link rel="stylesheet" href="../../assets/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/view.css"/>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <span>添加用户</span>
+    </div>
+    <div class="content">
+        <form id="form" class="layui-form layui-card-body" onsubmit="">
+            <table>
+                <tr>
+                    <td class="text-right">姓名</td>
+                    <td class="content_right"><input class="input" required placeholder="请输入姓名"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">手机号码</td>
+                    <td class="content_right">
+                        <input class="input" onblur="validatePhone()" name="phoneNumber" required
+                               placeholder="请输入手机号码"><span id="phoneMsg"></span></td>
+                </tr>
+                <tr>
+                    <td class="text-right">身份证号码</td>
+                    <td class="content_right"><input  onblur="validateCardId()"   name="cardIdNumber" required class="input"
+                                                      placeholder="请输入身份证号码"><span id="cardIdMsg"></span></td>
+                </tr>
+                <tr>
+                    <td class="text-right">密码</td>
+                    <td class="content_right"><input class="input" required placeholder="请输入密码"></td>
+                </tr>
+                <tr>
+                    <td>
+                    <td class="content_right">
+                        <button class="layui-btn layui-btn-blue" lay-submit lay-filter="formDemo">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button></td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+</div>
+<script src="../../assets/layui.all.js"></script>
+<script src="../../../qrcode/jquery2.1.4.js"></script>
+<script src="/layer/layer.js"></script>
+<script>
+    var form = layui.form,layer = layui.layer;
+    $(function () {
+        $("#form").submit(function () {
+            var flag = validatePhone();
+            if(flag==false){
+                return  false;
+            }
+            var windowId = layer.load();
+            var username = $("input:eq(0)").val();
+            var userPhone = $("input:eq(1)").val();
+            var cardId = $("input:eq(2)").val();
+            var password = $("input:eq(3)").val();
+            $.post("/customer/insert.do", {
+                username: username,
+                userPhone: userPhone,
+                cardId: cardId,
+                password: password
+            }, function (data) {
+                layer.close(windowId);
+                layer.msg(data.result);
+                if (data.status == 0) {
+                    //录入成功
+                    $("input").val("");
+                } else {
+                    //录入失败
+                }
+            });
+            return false;
+        });
+
+    });
+
+    function validatePhone() {
+        var val = $("input[name='phoneNumber']").val();
+
+        if (val == "") {
+            $("span[id='phoneMsg']").html("手机号码不能为空！").css("color", "red");
+            return false;
+        } else if (val.length < 11 || val.length > 11) {
+            $("span[id='phoneMsg']").html("手机号码的长度必须为11位！").css("color", "red");
+            return false;
+        }
+        $("span[id='phoneMsg']").html("");
+        return true;
+    }
+    function validateCardId() {
+        var val = $("input[name='cardIdNumber']").val();
+
+        if (val == "") {
+            $("span[id='cardIdMsg']").html("身份证号码不能为空！").css("color", "red");
+            return false;
+        } else if (val.length < 18 || val.length > 18) {
+            $("span[id='cardIdMsg']").html("身份证号码的长度必须为18位！").css("color", "red");
+            return false;
+        }
+        $("span[id='cardIdMsg']").html("");
+        return true;
+    }
+</script>
+</body>
+</html>
