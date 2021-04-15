@@ -1,0 +1,6 @@
+INSERT INTO `customer` (`id`, `username`, `userphone`, `cardid`, `password`, `createtime`, `logintime`) VALUES (3, '123123', '12312312333', '142727926467584964', '1111', '2021-3-28 10:32:16', '2021-3-16 10:32:12');
+INSERT INTO `customer` (`id`, `username`, `userphone`, `cardid`, `password`, `createtime`, `logintime`) VALUES (5, '123', '12345612345', '142727199906081516', '1', '2021-3-28 10:32:19', '2021-3-24 10:32:17');
+INSERT INTO `customer` (`id`, `username`, `userphone`, `cardid`, `password`, `createtime`, `logintime`) VALUES (6, '1', '13753931249', '142727199906081516', '1', '2021-3-28 10:35:23', '2021-2-23 10:35:21');
+INSERT INTO `customer` (`id`, `username`, `userphone`, `cardid`, `password`, `createtime`, `logintime`) VALUES (7, '123333', '12344412313', '142727926465584433', '1', '2021-3-28 10:41:35', NULL);
+INSERT INTO `customer` (`id`, `username`, `userphone`, `cardid`, `password`, `createtime`, `logintime`) VALUES (8, '8888', '12312316666', '142727926465583433', '123', '2021-3-28 10:54:16', NULL);
+INSERT INTO `customer` (`id`, `username`, `userphone`, `cardid`, `password`, `createtime`, `logintime`) VALUES (10, '2312312', '12345612453', '142727926467584433', '123', '2021-4-9 19:16:34', NULL);

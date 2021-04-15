@@ -1,0 +1,6 @@
+INSERT INTO `courier` (`id`, `username`, `userphone`, `cardid`, `password`, `packages`, `createtime`, `logintime`) VALUES (251, '小猪佩奇', '12345612345', '142727926467584964', '1111111', '0', '2021-3-26 01:05:45', NULL);
+INSERT INTO `courier` (`id`, `username`, `userphone`, `cardid`, `password`, `packages`, `createtime`, `logintime`) VALUES (252, '猪八戒', '12312312313', '142727926467583964', '12312312312', '0', '2021-3-27 00:00:00', NULL);
+INSERT INTO `courier` (`id`, `username`, `userphone`, `cardid`, `password`, `packages`, `createtime`, `logintime`) VALUES (258, '如来', '12345612343', '142727926467584964', '4444', '0', '2021-3-27 08:06:03', NULL);
+INSERT INTO `courier` (`id`, `username`, `userphone`, `cardid`, `password`, `packages`, `createtime`, `logintime`) VALUES (259, '四太子', '54698745621', '142727926465584433', '123123', '0', '2021-3-27 08:43:32', NULL);
+INSERT INTO `courier` (`id`, `username`, `userphone`, `cardid`, `password`, `packages`, `createtime`, `logintime`) VALUES (261, '高鹏帅', '13753931249', '142411', '123123123', '1000w+', '2021-3-27 15:59:35', NULL);
+INSERT INTO `courier` (`id`, `username`, `userphone`, `cardid`, `password`, `packages`, `createtime`, `logintime`) VALUES (266, '小猪帅佩奇', '13752479641', '142727926465583433', '123', '0', '2021-4-9 19:12:17', NULL);
